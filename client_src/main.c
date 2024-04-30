@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:29:52 by rodralva          #+#    #+#             */
-/*   Updated: 2024/04/26 16:34:03 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/04/30 17:13:13 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 				kill(ft_atoi(argv[1]), SIGUSR1);
 			j++;
 			c = c << 1;
-			usleep(100);
+			usleep(1000);
 		}
 		j = 0;
 		i++;
@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 			kill(ft_atoi(argv[1]), SIGUSR1);
 		j++;
 		c = c << 1;
-		usleep(10);
+		usleep(1000);
 	}
 	return (0);
 }

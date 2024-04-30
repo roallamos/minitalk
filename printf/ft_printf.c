@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 11:56:15 by rodralva          #+#    #+#             */
-/*   Updated: 2024/02/23 17:39:47 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/04/30 15:46:04 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_format(char const *format, va_list vargs, int *ret)
 	{
 		write(1, "0x", 2);
 		*ret += 2;
-		ft_putnbr_base(va_arg(vargs, uintptr_t), "0123456789abcdef", ret);
+		ft_putnbr_base(va_arg(vargs, intptr_t), "0123456789abcdef", ret);
 	}
 	else if (format[1] == 'd')
 		ft_putnbr(va_arg(vargs, int), ret);
