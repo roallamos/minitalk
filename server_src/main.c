@@ -6,13 +6,13 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:57:31 by rodralva          #+#    #+#             */
-/*   Updated: 2024/04/26 16:46:24 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/05/08 19:12:00 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
 
-void	controlador(int signal)
+void	handler(int signal)
 {
 	static char	c;
 	static char	*str;
@@ -40,9 +40,15 @@ void	controlador(int signal)
 
 int	main(void)
 {
+	struct sigaction sa;
+
+	sa.sa_handler = handler;
+	sigemptyset(&sa.sa_mask);
+	sigaddset(&sa.sa_mask, SIGTERM);
+	sa.sa_flags = 0;
 	ft_printf("%d\n",getpid());
-	signal(SIGUSR1, controlador);
-	signal(SIGUSR2, controlador);
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	while(1)
 		pause();
 	return(0);
