@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:57:31 by rodralva          #+#    #+#             */
-/*   Updated: 2024/05/08 19:12:00 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/05/09 20:49:09 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,25 +17,43 @@ void	handler(int signal)
 	static char	c;
 	static char	*str;
 	static int	i;
+	static int	j;
+	static int	pid;
 
-
-	if (signal == SIGUSR2)
-		c = c | 1;
-	i++;
-	if (i != 8)
-		c = c << 1;
-	else if (i == 8)
+	if (j < 32)
 	{
-		str = ft_strjoin_free(str, &c);
-		if (!c)
+		if (signal == SIGUSR2)
+			pid = pid | 1;
+		j++;
+		if (j != 32)
+			pid <<= 1;
+	}
+	else
+	{
+		if (signal == SIGUSR2)
+			c = c | 1;
+		i++;
+		if (i != 8)
+			c = c << 1;
+		else if (i == 8)
 		{
-			ft_printf("%s\n", str);
-			free(str);
-			str = NULL;
+			str = ft_strjoin_free(str, &c);
+			if (!c)
+			{
+				ft_printf("%s\n", str);
+				kill(pid, SIGUSR1);
+				j = 0;
+				pid = 0;
+				usleep(100);
+				free(str);
+				str = NULL;
+			}
+			c = c & 0;
+			i = 0;
 		}
-		c = c & 0;
-		i = 0;
-	}	
+		if (pid != 0)
+			kill(pid, SIGUSR2);
+	}
 }
 
 int	main(void)

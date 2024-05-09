@@ -6,7 +6,7 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 16:29:52 by rodralva          #+#    #+#             */
-/*   Updated: 2024/05/08 19:20:54 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/05/09 14:59:37 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,10 @@ int	main(int argc, char **argv)
 		j = 0;
 		i++;
 	}
-	c = 0;
 	while(j < 8)
 	{
 		kill(ft_atoi(argv[1]), SIGUSR1);
 		j++;
-		c = c << 1;
 		usleep(800);
 	}
 	return (0);

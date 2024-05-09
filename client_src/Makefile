@@ -2,9 +2,9 @@ NAME = client
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -O3
 
-SOURCES = main.c
+SOURCES = client.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
@@ -16,7 +16,7 @@ ${NAME}: ${OBJECTS}
 	${MAKE} -C ${LPATH}
 	${MAKE} -C ../printf
 	${MAKE} -C ${LPATH} bonus
-	${CC} ${CFLAGS} ${SOURCES} -L ${LPATH} -l ${LNAME} -L ../printf -l ftprintf -o ../${NAME}
+	${CC} ${CFLAGS} ${SOURCES} -L ${LPATH} -l ${LNAME} -L ../printf -l ftprintf -g3 -o ../${NAME}
 
 clean:
 	${MAKE} -C ../libft clean
