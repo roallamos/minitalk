@@ -6,11 +6,30 @@
 /*   By: rodralva <rodralva@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 14:57:31 by rodralva          #+#    #+#             */
-/*   Updated: 2024/05/09 20:49:09 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:46:05 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "server.h"
+
+void	get_client_pid(int *j, int *pid, int signal)
+{
+	if (signal == SIGUSR2)
+		*pid = *pid | 1;
+	*j += 1;
+	if (*j != 32)
+		*pid <<= 1;
+}
+
+void	terminate_client(char *str, int *pid, int *j)
+{
+	ft_printf("%s\n", str);
+	kill(*pid, SIGUSR1);
+	*j = 0;
+	*pid = 0;
+	free(str);
+	str = NULL;
+}
 
 void	handler(int signal)
 {
@@ -21,13 +40,7 @@ void	handler(int signal)
 	static int	pid;
 
 	if (j < 32)
-	{
-		if (signal == SIGUSR2)
-			pid = pid | 1;
-		j++;
-		if (j != 32)
-			pid <<= 1;
-	}
+		get_client_pid(&j, &pid, signal);
 	else
 	{
 		if (signal == SIGUSR2)
@@ -44,7 +57,6 @@ void	handler(int signal)
 				kill(pid, SIGUSR1);
 				j = 0;
 				pid = 0;
-				usleep(100);
 				free(str);
 				str = NULL;
 			}
@@ -58,17 +70,16 @@ void	handler(int signal)
 
 int	main(void)
 {
-	struct sigaction sa;
+	struct sigaction	sa;
 
 	sa.sa_handler = handler;
 	sigemptyset(&sa.sa_mask);
 	sigaddset(&sa.sa_mask, SIGTERM);
 	sa.sa_flags = 0;
-	ft_printf("%d\n",getpid());
+	ft_printf("%d\n", getpid());
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
-	while(1)
+	while (1)
 		pause();
-	return(0);
+	return (0);
 }
-

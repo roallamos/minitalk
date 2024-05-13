@@ -6,7 +6,7 @@
 /*   By: rodralva <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 15:05:04 by rodralva          #+#    #+#             */
-/*   Updated: 2024/05/13 21:08:21 by rodralva         ###   ########.fr       */
+/*   Updated: 2024/05/13 21:07:16 by rodralva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	send_singal(char *argv, int pid_serv)
 
 int	main(int argc, char **argv)
 {
-	int	pid_serv;
+	int pid_serv;
 
 	if (argc != 3)
 		return (0);
@@ -86,5 +86,5 @@ int	main(int argc, char **argv)
 	signal(SIGUSR1, handler);
 	signal(SIGUSR2, handler);
 	while (1)
-		pause();
+		pause();		
 }
