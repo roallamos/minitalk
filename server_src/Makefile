@@ -4,7 +4,7 @@ CC = cc
 
 CFLAGS = -Wall -Werror -Wextra -O3
 
-SOURCES = main.c 
+SOURCES = main.c server.c 
 
 OBJECTS = $(SOURCES:.c=.o)
 
